@@ -1,4 +1,5 @@
 const { sequelize, models, Sequelize } = require("../config/sequelize-config");
+const rating = require("../models/rating");
 const Op = Sequelize.Op;
 
 const addMovieController = async (req, res) => {
@@ -36,7 +37,7 @@ const updateMovieController = async (req, res) => {
       },
       {
         where: {
-          movie_name: req.query.movie_name,
+          movie_name: req.query.movie_name || req.params.movie_name,
         },
         returning: true,
       }
@@ -53,11 +54,19 @@ const updateMovieController = async (req, res) => {
 const getallMoviescontroller = async (req, res) => {
   try {
     const movies = await models.movies.findAll({
-      // attributes: ["movie_name, rating"],
+      attributes: ["movie_name"],
 
       include: [
-        // { model: models.users, as: "movies_user", required: true },
-        { model: models.rating, required: true },
+        // {
+        //   model: models.users,
+        //   required: true,
+        //   attributes: ["user_name"],
+        // },
+        {
+          model: models.rating,
+          required: true,
+          attributes: ["rating"],
+        },
       ],
     });
     return res.json({
@@ -74,8 +83,20 @@ const getbysingleitemcontroller = async (req, res) => {
   try {
     const items = await models.items.findAll({
       where: {
-        item_id: req.query.item_id,
+        movie_name: req.query.movie || req.params.movie,
       },
+      include: [
+        // {
+        //   model: models.users,
+        //   required: true,
+        //   attributes: ["user_name"],
+        // },
+        {
+          model: models.rating,
+          required: true,
+          attributes: ["rating"],
+        },
+      ],
     });
 
     return res.json({

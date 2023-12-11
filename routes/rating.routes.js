@@ -7,6 +7,7 @@ const { ratingValueSchema } = require("../validations/rating.schema");
 const {
   addRatingController,
   updateRatingController,
+  overallRatingController,
 } = require("../controllers/addRating.controller");
 const { isAuthorised } = require("../middlewares/authorisation.middleware");
 
@@ -22,5 +23,5 @@ router.put(
   isAuthorised,
   updateRatingController
 );
-
+router.get("/average-rating", isAuthorised, overallRatingController);
 module.exports = router;

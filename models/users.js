@@ -78,9 +78,9 @@ module.exports = function model(sequelize, types) {
   );
   users.associate = function (models) {
     users.hasMany(models.movies, {
-      as: "movies_user",
+      // as: "users_movies",
       foreignKey: "user_id",
-      targetKey: "user_id",
+      sourceKey: "user_id",
     });
   };
 

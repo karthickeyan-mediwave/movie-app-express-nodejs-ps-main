@@ -33,14 +33,13 @@ module.exports = function model(sequelize, types) {
   );
   movies.associate = function (models) {
     movies.belongsTo(models.users, {
-      as: "movies_user",
+      // as: "movies_user",
       foreignKey: "user_id",
-      sourceKey: "user_id",
+      targetKey: "user_id",
     });
   };
   movies.associate = function (models) {
     movies.belongsTo(models.rating, {
-      // as: "movies_rating",
       foreignKey: "movie_id",
       targetKey: "movie_id",
     });

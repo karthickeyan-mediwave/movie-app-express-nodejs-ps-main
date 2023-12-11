@@ -42,7 +42,6 @@ module.exports = function model(sequelize, types) {
 
   rating.associate = function (models) {
     rating.belongsTo(models.movies, {
-      as: "rating_movies",
       foreignKey: "movie_id",
       sourceKey: "movie_id",
     }),
