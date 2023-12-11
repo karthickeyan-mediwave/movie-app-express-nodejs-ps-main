@@ -81,9 +81,9 @@ const getallMoviescontroller = async (req, res) => {
 // get single item by id
 const getbysingleitemcontroller = async (req, res) => {
   try {
-    const items = await models.items.findAll({
+    const items = await models.movies.findOne({
       where: {
-        movie_name: req.query.movie || req.params.movie,
+        movie_id: req.query.movie_id,
       },
       include: [
         // {
@@ -94,7 +94,10 @@ const getbysingleitemcontroller = async (req, res) => {
         {
           model: models.rating,
           required: true,
-          attributes: ["rating"],
+          attributes: [
+            [Sequelize.fn("AVG", Sequelize.col("rating")), "overall_rating"],
+          ],
+          group: ["movie_id"],
         },
       ],
     });

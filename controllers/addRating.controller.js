@@ -42,11 +42,6 @@ const updateRatingController = async (req, res) => {
 const overallRatingController = async (req, res) => {
   const ratings = await models.rating.findAndCountAll({
     attributes: [
-      "movie_id",
-      [Sequelize.fn("AVG", Sequelize.col("rating")), "overall_rating"],
-    ],
-
-    attributes: [
       [Sequelize.fn("AVG", Sequelize.col("rating")), "overall_rating"],
     ],
     group: ["movie_id"],
