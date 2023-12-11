@@ -2,7 +2,7 @@ const helper = require("../services/helper");
 const bcrypt = require("bcryptjs");
 
 module.exports = function model(sequelize, types) {
-  const Users = sequelize.define(
+  const users = sequelize.define(
     "users",
     {
       user_id: {
@@ -76,6 +76,13 @@ module.exports = function model(sequelize, types) {
       // }
     }
   );
+  users.associate = function (models) {
+    users.hasMany(models.movies, {
+      as: "movies_user",
+      foreignKey: "user_id",
+      targetKey: "user_id",
+    });
+  };
 
-  return Users;
+  return users;
 };

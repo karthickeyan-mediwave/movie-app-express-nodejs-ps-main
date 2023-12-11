@@ -6,9 +6,7 @@ module.exports = {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        primaryKey: true,
         autoIncrement: true,
-        unique: true,
       },
       movie_id: {
         type: Sequelize.UUID,
